@@ -27,16 +27,13 @@ jobs:
 
       - name: Download Dependencies
         run: |
-          cd backend
           go mod download
 
       - name: Build Api Binary
         run: |
-          cd backend
           go build -o api ./cmd/api/
           
       - name: Run Tests
         run: |
-          cd backend
           go test ./... -v
 
