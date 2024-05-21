@@ -1,1 +1,1 @@
-# ipinfo
+# myip

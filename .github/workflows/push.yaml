@@ -1,0 +1,42 @@
+name: Build and Test on Push
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  #pull_request:
+  workflow_call:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: ['1.22.x']
+  
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.x'
+
+      - name: Download Dependencies
+        run: |
+          cd backend
+          go mod download
+
+      - name: Build Api Binary
+        run: |
+          cd backend
+          go build -o api ./cmd/api/
+          
+      - name: Run Tests
+        run: |
+          cd backend
+          go test ./... -v
+

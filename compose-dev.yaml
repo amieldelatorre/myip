@@ -1,0 +1,17 @@
+services:
+  api:
+    container_name: myip-api
+    pull_policy: build
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+  haproxy:
+    image: haproxy
+    container_name: myip-haproxy
+    ports:
+      - 8080:80
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    depends_on:
+      - api
