@@ -51,6 +51,22 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: amieldelatorre/myip:${{ github.ref_name }},amieldelatorre/myip:latest
+  
+  publish-release:
+    needs: [ create_release_draft, build_docker_image ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: gh release edit "$TAG" --draft=false
     
         
     
