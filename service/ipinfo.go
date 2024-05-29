@@ -74,7 +74,7 @@ func getRequestIpAddress(r *http.Request) (string, error) {
 
 	forwardedIps := strings.Split(r.Header.Get("X-Forwarded-For"), ",")
 	if len(forwardedIps) > 0 {
-		ip := forwardedIps[len(forwardedIps)-1]
+		ip := forwardedIps[0]
 		if ip != "" {
 			sourceIp = ip
 		}
