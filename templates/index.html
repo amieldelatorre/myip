@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyIp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Open Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings: "wdth" 100;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #A8DADC;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            max-width: 90%;
+            margin: auto;
+            padding: 30px;
+        }
+
+        ul {
+            max-width: 100%;
+        }
+    </style>
+</head>
+    <body>
+        <div class="main" id="main">
+            <h1>Your Ip Address is: {{.SourceIp}}</h1>
+            <h2>Headers:</h2>
+            <ul>
+                {{- range $key, $values := .RequestHeaders }}
+                {{- range $values }}
+                <li>{{ $key }}: {{ . }}</li>
+                {{- end }}
+                {{- end }}
+            </ul>
+        </div><!--End of div id main-->
+    </body>
+</html>

@@ -1,0 +1,39 @@
+version: 2
+updates:
+  - package-ecosystem: "gomod" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    groups:
+      all:
+        patterns:
+          - "*" # Match all packages
+
+  - package-ecosystem: "docker"
+    directories:
+      - "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      all:
+        patterns:
+          - "*" # Match all
+
+  # - package-ecosystem: "docker-compose"
+  #   directories:
+  #     - "/"
+  #   schedule:
+  #     interval: "weekly"
+  #   groups:
+  #     all:
+  #       patterns:
+  #         - "*" # Match all
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      all:
+        patterns:
+          - "*" # Match all
