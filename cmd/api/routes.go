@@ -7,9 +7,12 @@ import (
 )
 
 func RegisterRoutes(mux *http.ServeMux, m handler.Middlware, ipInfoHandler handler.IpInfoHandler) {
-	getIpInfoHandlerFunc := m.RecoverPanic(m.AddRequestId(http.HandlerFunc(ipInfoHandler.GetIpInfo)))
+	getIndex := m.RecoverPanic(m.AddRequestId(http.HandlerFunc(ipInfoHandler.Index)))
 	getHeaderByNameHandlerFunc := m.RecoverPanic(m.AddRequestId(http.HandlerFunc(ipInfoHandler.GetHeaderByName)))
 
-	mux.Handle("GET /", getIpInfoHandlerFunc)
+	mux.Handle("GET /", getIndex)
+	mux.HandleFunc("GET /favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNoContent)
+	})
 	mux.Handle("GET /{headerName}", getHeaderByNameHandlerFunc)
 }
